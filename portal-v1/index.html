@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>xFace portal</title>
+<meta name="viewport" content="width=480,user-scalable=yes,target-densitydpi=device-dpi"/>
+<link rel="stylesheet" type="text/css" href="source/m/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="source/m/css/scrollPage.css"/>
+<script src="xface.js"></script>
+<script src="js/xPortal.js"></script>
+<script src="js/iscroll4.js"></script>
+<script src="js/scrollPage.js"></script>
+<script src="js/UI.js"></script>
+<script>
+
+    if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement("style");
+        msViewportStyle.appendChild(
+        document.createTextNode(
+            "@-ms-viewport{width:auto!important}"
+        )
+    );
+    document.getElementsByTagName("head")[0].
+    appendChild(msViewportStyle);
+    }
+
+	var XP_RES = {
+			host:'http://apollo.polyvi.com/develop/apps',
+			OS:(function(){
+					var ua = navigator.userAgent.toLowerCase();
+					var isIOS = ua.indexOf('iphone')>0;
+					var isIPad = ua.indexOf('ipad')>0;
+					return (isIOS||isIPad)?'ios':'android';
+				})(),
+			remoteList:'list.js'
+		};
+
+
+	var preference;
+	var nav;
+	var group;
+	var taskQueue = new TaskQueue();
+	var LOCAL_APP_LIST = [];
+	var DEFAULT_SETTINGS = {
+		autoHideToolTip:true,
+		autoUpdateRemoteAppList:false
+	}
+
+
+	function initPage(){
+		_initSettings();
+		_initNavigation();
+		_initHomeButton();
+		_initNavButton();
+		_initTaskQueue();
+		_initToolTip();
+		_initAppListModeSwitcher();
+		_initPreferencePanel();
+		_initPanelGroup();
+	}
+
+	//以下为平台扩展事件
+	document.addEventListener('deviceready', function(){
+
+		document.addEventListener('backbutton', _handleOnPressBackButton, false);
+		document.addEventListener('pause', _handleOnAppPaused, false);
+		document.addEventListener('resume', _handleOnAppResumed, false);
+        _updateLocalAppList();
+        updateRemoteList();
+	});
+
+	function _handleOnPressBackButton(event){nav.back();}
+	function _handleOnAppPaused(event){preference.save();}
+	function _handleOnAppResumed(event){}
+</script>
+</head>
+
+<body onload="initPage()">
+    <div id="VIEWPORT">
+        <div id="HEADER"><img src="source/m/img/logo.png"/></div>
+        <div id="PANEL_GROUP"></div>
+        <div id="BT_HOME"><img src="source/m/img/home.png"/></div>
+        <div id="BT_HOME_SMALL"><img src="source/m/img/home_small.png"/></div>
+        <div id="POPUP"></div>
+        <div id="TOOLTIP"></div>
+        <div id="FOOTER">
+            <img id="BT_DOWNLOAD" class="left" src="source/m/img/download.png"/>
+            <img id="BT_APP" src="source/m/img/app.png"/>
+            <img id="BT_MANAGE" class="right" src="source/m/img/manage.png"/>
+        </div>
+        <span id="SWITCH_BOX">
+            <img id="SWITCH_LOCK" src="source/m/img/switch_lock.png"/>
+            <img id="SWITCH_MASK" src="source/m/img/switch_mask.png"/>
+        </span>
+    </div>
+
+
+    <div id="LIB">
+        <div id="DOWNLOAD" class="content"><h2>下载列表</h2></div>
+        <div id="APP" class="content"><h2>本地应用</h2><div id="WRAPPER_4_APPLIST"><div id="APP_BOX"></div></div></div>
+        <div id="SETTINGS" class="content">
+            <h2>选项</h2>
+            <span class="itemGroup">
+                <span class="listItem">自动更新应用列表（需要数据流量）<img id="BT_AUTO_UPDATE" src="source/m/img/toggle.png"/></span>
+                <span class="listItem">自动隐藏提示信息<img id="BT_AUTO_HIDE_INFO" src="source/m/img/toggle.png"/></span>
+            </span>
+            <span class="itemGroup">
+                <span class="listItem" onclick="uninstallAll()">删除所有本地应用</span>
+                <span class="listItem" onclick="alert('Polyvi 2012')">关于...</span>
+            </span>
+        </div>
+    </div>
+</body>
+</html>

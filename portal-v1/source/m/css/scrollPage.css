@@ -1,0 +1,55 @@
+
+/*
+   Scroll page style
+*/
+
+.scroll_page_wrapper{
+    height: 100%;
+    overflow: hidden;
+}
+
+.scroll_page_scroller{
+    height:100%;
+    float:left;
+    padding:0;
+}
+
+.scroll_page{
+    height: 100%;
+    float: left;
+}
+
+.scroll_nav_div {
+    position: fixed;
+    z-index: 99;
+    width:100%;
+    left: 0;
+    bottom: 10px;
+    text-align: center;
+    margin: auto;
+}
+
+.scroll_nav_list{
+    font-size: 12px;
+    height: 20px;
+}
+
+.scroll_nav_list > div {
+    display: inline-block;
+    color: #ffffff;
+    height: 10px;
+    width: 10px;
+    margin-right:7px;
+    background: #999;
+    border-radius: 10px;
+}
+
+.scroll_nav_list > div.scroll_nav_active {
+    background:#99cc00;
+    transform:scale(1.2,1.2);
+    -webkit-transform:scale(1.2,1.2);
+}
+
+.scroll_nav_list > div:last-child {
+    margin-right:0;
+}
