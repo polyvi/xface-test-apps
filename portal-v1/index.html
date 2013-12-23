@@ -24,7 +24,8 @@
     appendChild(msViewportStyle);
     }
 
-	var XP_RES = {
+    var root;
+    var XP_RES = {
 			host:'http://apollo.polyvi.com/develop/apps',
 			OS:(function(){
 					var ua = navigator.userAgent.toLowerCase();
@@ -65,6 +66,17 @@
 		document.addEventListener('backbutton', _handleOnPressBackButton, false);
 		document.addEventListener('pause', _handleOnAppPaused, false);
 		document.addEventListener('resume', _handleOnAppResumed, false);
+
+        var onError = function(e) {
+            console.log('[ERROR] Problem setting up root filesystem!');
+            console.log(JSON.stringify(e));
+        };
+        var onSuccess = function(fileSystem) {
+            console.log('File API Init: Setting PERSISTENT FS.');
+            root = fileSystem.root;
+        };
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onSuccess, onError);
+
         _updateLocalAppList();
         updateRemoteList();
 	});

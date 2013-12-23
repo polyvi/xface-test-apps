@@ -191,7 +191,7 @@ function DownloadTask(url){
 		var seg = String(url).split('/');
 		fileTransfer = new FileTransfer();
 		fileTransfer.download(
-			url, seg.pop(),
+			url, root.fullPath + "/" + seg.pop(),
 			_handleOnSuccess, _handleOnFailure
 		);
 
