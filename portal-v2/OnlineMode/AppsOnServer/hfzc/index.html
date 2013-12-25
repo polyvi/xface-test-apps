@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML>
+<html manifest="hfzc.manifest">
+<head>
+<script type="text/javascript" src="viewport.adapter.js"></script>
+<script type="text/javascript" src="xface.js"></script>
+<style>
+	html,body {
+		padding:0;
+		margin:0;
+        width: 480px;
+        height: 100%;
+	}
+	h1 {
+		width:100%;
+		text-align:center;
+		margin:0;
+		padding:0;
+		color:#109dee;
+	}
+	.detail{
+		border-top:1px solid #ccc;
+		font-size:17pt;
+		line-height:35px;
+		text-indent:2em;
+		padding:10px;
+		margin-top:10px;
+	}
+	img{
+		margin-top:20px;
+		border-radius:10px;
+	}
+	.quit{
+		width:100%;
+		text-align:center;
+	}
+	.quitbtn{
+		width:300px;
+		height:50px;
+		font-size:17pt;
+		border-radius:8px;
+	}
+</style>
+<script>
+	document.addEventListener('deviceready', function(){
+		document.addEventListener('backbutton', closeApp, false);
+	});
+	
+	function closeApp(){
+        navigator.notification.confirm("确定退出本应用？", function(index){
+            if(1==index)xFace.app.close();
+        },"提示","确定,取消");
+	}
+</script>
+</head>
+<body>
+<div> <img src="css/img/r1.png" /> </div>
+<p>
+<h1>话费充值</h1>
+<div class="detail">操作方便、充值快捷，可随时随地给自己、给家人、给同事朋友的手机和座机充值。到帐时间快，分分钟到帐。支持全国各省市移动、电信和联通三大运营商的手机充值。支持除云南、西藏、陕西、甘肃、新疆外的全国各省市电信、联通固话充值。</div>
+</p>
+<div class="quit"><input type="button" value="退出" class="quitbtn" onClick="closeApp()"/></div>
+</body>
+</html>

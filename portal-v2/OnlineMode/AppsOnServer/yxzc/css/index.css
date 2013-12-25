@@ -1,0 +1,276 @@
+body {
+	padding:0;
+	margin:0;
+	background-color:#f8f8f8;
+}
+a {
+	color:#898989;
+	-webkit-user-select: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+#tab {
+	z-index:1;
+	font-size:22pt;
+	font-weight:bold;
+	width:480px;
+	text-align:center;
+	position:absolute;
+	height:50px;
+	padding-top:20px;
+	background-color:#484847;
+}
+.tabItem {
+	height:90%;
+	text-decoration:none;
+	display:inline-block;
+	margin-right:13px;
+}
+.tabFocus {
+	color:white;
+	border-bottom:5px solid #ffb018;
+	text-shadow:1px 1px 0px #333;
+}
+.tabBlur {
+	color:#898989;
+	border-bottom:0px solid #ffb018;
+}
+.squaredItem {
+	width:190px;
+	height:190px;
+	margin:20px 5px 5px 30px;
+	display:inline-block;
+	text-align:center;
+	background-color:#fff;
+}
+.recommendItem {
+	height:230px;
+	margin-top:1px;
+}
+.recommendItem_1 {
+	width:239px;
+	height:160px;
+	display:inline-block;
+	margin-top:1px;
+	vertical-align:top;
+	float:left;
+}
+.recommendItem_2 {
+	width:240px;
+	height:160px;
+	display:inline-block;
+	margin-top:1px;
+	vertical-align:top;
+	margin-left:1px;
+}
+.recommendItem_3 {
+	height:160px;
+	margin-top:1px;
+}
+
+/************ 应用市场 ******************/
+.marketItem {
+	width:224px;
+	height:110px;
+	padding-top:15px;
+	padding-left:15px;
+	display:inline-block;
+	border-right:1px solid #ebebeb;
+	border-bottom:1px solid #ebebeb;
+	background-color:#fff;
+	overflow:hidden;
+}
+.top_left_img {
+	width:60px;
+	height:60px;
+}
+.top_left_region {
+	display:inline-block;
+	vertical-align:top;
+}
+.top_right_name{
+	width:100%;
+	font-weight:bold;
+	margin-bottom:5px;
+}
+.top_right_intro{
+	color:#929191;
+}
+.top_right_region {
+	width:60%;
+	height:60px;
+	display:inline-block;
+	vertical-align:top;
+	margin-left:10px;
+}
+.topRegion {
+	height:70px;
+}
+.bot_left_stars {
+	width:60%;
+	height:100%;
+}
+.bot_left_region {
+	width:65%;
+	display:inline-block;
+}
+.bot_right_status {
+}
+.bot_right_region {
+	width:32%;
+	display:inline-block;
+	color:#01cd01;
+	text-align:right;
+}
+.bottomRegion {
+	height:30px;
+}
+
+/*******************  slider settings position cannot modify  *******************************/
+#main{
+	position:absolute;
+	overflow:hidden;
+	width:480px;
+	height:640px;
+}
+
+#content {
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+.contentItem {
+	width:480px;
+}
+#wrapper0 {
+	position:absolute;
+	z-index:1;
+	top:70px;
+	bottom:0px;
+	left:0;
+	width:480px;
+	overflow:auto;
+}
+#wrapper1 {
+	position:absolute;
+	z-index:1;
+	top:70px;
+	bottom:0px;
+	left:0;
+	width:480px;
+	overflow:auto;
+	left:480px;
+}
+#wrapper2 {
+	position:absolute;
+	z-index:1;
+	top:70px;
+	bottom:0px;
+	left:0;
+	width:480px;
+	overflow:auto;
+	left:960px;
+}
+
+/************xface AMS ******************/
+
+#appManager{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:480px;
+	height:640px;
+	border:#0000FF solid 1px;
+	display:none;
+	z-index:1;
+	background-color:#FFFFFF;
+}
+#header{
+	font-size:22pt;
+	font-weight:bold;
+	width:480px;
+	height:50px;
+	background-color:#f6f8fb;
+	-webkit-box-shadow:0 0 8px #d8d8d8;
+}
+.goBack{
+	
+}
+.install {
+	width:430px;
+	height:50px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	border:none;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#ffb018), to(#d68e03));
+	color:#fff;
+	font-size:20pt;
+	font-weight:bold;
+}
+.install:hover, .update:hover {
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#d68e03), to(#ffb018));
+}
+.update {
+	width:210px;
+	height:50px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	border:none;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#ffb018), to(#d68e03));
+	color:#fff;
+	font-size:20pt;
+	font-weight:bold;
+}
+.down {
+	width:210px;
+	height:50px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	border:none;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#727272), to(#504f4f));
+	color:#fff;
+	font-size:20pt;
+	font-weight:bold;
+}
+.down:hover {
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#504f4f), to(#727272));
+}
+.progress {
+	width:350px;
+	height:150px;
+	border:1px solid #e1e1e1;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	background-color:#f6f8fb;
+	box-shadow:0 0 8px #d8d8d8;
+	-webkit-box-shadow:0 0 8px #d8d8d8;
+}
+.progress_bg {
+	width:280px;
+	height:20px;
+	border:1px solid #1aa91a;
+	margin-top:48px;
+	margin-left:35px;
+}
+.progress_in {
+	background:#2ad402;
+	width:50%;
+	height:100%;
+}
+.promt{
+	width:280px;
+	margin-top:16px;
+	margin-left:35px;
+	text-align:center;
+}
+.promt span{
+	color:#ea6a02;
+}
+
+/*应用安装时的透明背景*/
+.mask{
+	width:480px;
+	height:800px;
+	background-color:#000000;
+	margin-top:20px;
+	opacity:0.5;
+}

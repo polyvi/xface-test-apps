@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML>
+<html manifest="zjdy.manifest">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<script type="text/javascript" src="js/viewport.adapter.js?width=480"></script>
+<script type="text/javascript" src="xface.js"></script>
+<style>
+	body {
+		width:480px;
+		padding:0;
+		margin:0;
+	}
+	h1 {
+		width:100%;
+		text-align:center;
+		margin:0;
+		padding:0;
+		color:#109dee;
+	}
+	.detail{
+		border-top:1px solid #ccc;
+		font-size:17pt;
+		line-height:35px;
+		text-indent:2em;
+		padding:10px;
+		margin-top:10px;
+	}
+	img{
+		margin-top:20px;
+		border-radius:10px;
+	}
+	.quit{
+		width:100%;
+		text-align:center;
+	}
+	.quitbtn{
+		width:300px;
+		height:50px;
+		font-size:17pt;
+		border-radius:8px;
+	}
+</style>
+<script>
+	document.addEventListener('deviceready', function(){
+		document.addEventListener('backbutton', closeApp, false);
+	})
+	
+	function closeApp(){
+		  navigator.notification.confirm("确定退出本应用？", function(index){
+            if(1==index)xFace.app.close();
+        },"提示","确定,取消")
+	}
+</script>
+</head>
+<body>
+<div> <img src="css/img/r1.png" /> </div>
+<p>
+<h1>紫荆电影</h1>
+<div class="detail">四川紫荆影业是一家从事现代电影院的投资及管理的专业公司，旗下拥有成都市紫荆电影城、王府井电影城、新城市电影城、沙湾电影城、蛟龙紫荆国际电影城、金沙紫荆电影城。是全国第一家开通手机支付预定电影票业务的影业集团（公司）；用户足不出户可以完成电影票的预定，省去排队的烦恼，同时还可以享受更多折扣活动。</div>
+</p>
+<div class="quit"><input type="button" value="退出" class="quitbtn" onClick="closeApp()"/></div>
+</body>
+</html>

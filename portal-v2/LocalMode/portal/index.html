@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html><!--HTML5 doctype-->
+<html>
+    <head>
+        <script type="text/javascript" src="viewport.adapter.js"></script>
+      	<script type="text/javascript" src="xface.js"></script>
+        <script type="text/javascript" src="js/simulate_data.js"></script>
+    	<script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/utils.js"></script>
+        <script type="text/javascript" src="js/iscroll.js"></script>
+		<script type="text/javascript" src="js/xFaceAMS.js"></script>
+        <script type="text/javascript" src="js/amsUI.js"></script>
+        <script type="text/javascript" src="adapter_wp.js"></script>
+        <link type="text/css" rel="stylesheet" href="css/index.css" />
+    </head>
+    <body>
+    	<!--     主页面      -->
+        <div id="main">
+            <div id="tab">
+                <div id="tab_myWidgets" href="#" class="tabItem">我的应用</div>
+                <div id="tab_recommend" href="#"  class="tabItem">推荐应用</div>
+                <div id="tab_market" href="#"  class="tabItem">应用集市</div>
+            </div>
+            <div id="content">
+                <div id="wrapper0"><div id="myWidgets" class="contentItem"></div></div>
+                <div id="wrapper1"><div id="recommend" class="contentItem">
+                    <div class="recommendItem" onclick="openInstallAppDetail(simulate_marketList[6])" style="background:url(css/img/recommend/jdsc.jpg)"></div>
+                    <div class="recommendItem_1" onclick="openInstallAppDetail(simulate_marketList[4])" style="background:url(css/img/recommend/hbcx.jpg)"></div>
+                    <div class="recommendItem_2" onclick="openInstallAppDetail(simulate_marketList[0])" style="background:url(css/img/recommend/hfcz.jpg)"></div>
+                    <div class="recommendItem_3" onclick="openInstallAppDetail(simulate_marketList[2])" style="background:url(css/img/recommend/zjdy.jpg)"></div>
+                    <div class="recommendItem_3" onclick="openInstallAppDetail(simulate_marketList[5])" style="background:url(css/img/recommend/xykhk.jpg)"></div>
+                </div></div>
+                <div id="wrapper2"><div id="market" class="contentItem"></div></div>
+            </div>
+        </div>
+        <!--   应用下载、更新、卸载页面   -->
+        <div id="details" style="display:none;">
+        	<div class="detail_header">
+            	<div id="backBtn"></div>
+                <div class="tilte">应用简介</div>
+            </div>
+            <div id="detail_content">
+                <div class="left"><img id="img" /></div>
+                <div class="right">
+                	<div id="name" class="item">话费直充</div>
+                    <div id="version" class="item">版本号：1.0.0</div>
+                    <div id="stars" class="item"></div>
+                    <div id="" class="item_">上线时间：2012-6-11</div>
+                    <div id="size" class="item_">大小：1024KB</div>
+                </div>
+                <div>
+                <span id="startBtn" class="start" style="display:none;">启动</span>
+                <span id="installBtn" class="install" style="display:none;" >安装</span>
+                <span id="updateBtn"  class="update" style="display:none;">更新</span>
+                <span id="uninstall"  class="down" style="display:none;">卸载</span>
+                </div>
+                <h2>应用简介</h2>
+                <div id="intro">话费直充提供全国话费充值的功能，方便快捷。</div>
+            </div>
+        </div>
+        
+        <div id="mask" style="display:none;" >
+        	<div id='popBox'>
+                <div id='progressRegion'>
+                </div>
+                <div class="text">
+                    <div id="message"></div>
+                </div>
+        	</div>
+        </div>
+        
+    </body>
+</html>

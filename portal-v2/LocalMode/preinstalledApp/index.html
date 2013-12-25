@@ -1,0 +1,244 @@
+<!DOCTYPE html><!--HTML5 doctype-->
+<html>
+<head>
+<title>机票订购</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+ 
+<link rel="stylesheet" type="text/css" href="css/jqMobi.css"/>
+<link type="text/css" rel="stylesheet" href="css/calendar.css">
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<!-- include touch.js on desktop browsers only -->
+
+</head>
+<body>
+<div id="jQUi">
+  <div id="splashscreen">  
+        <p class="splashLoading">正在载入中<span id="point">...</span></p>
+        <div class="splashCenter">
+            <div class="splashTitle">机票查询</div>
+            <img src="img/bg.gif" class="splashBg"/>
+        </div>
+        <div class="splashBottom">
+            V1.0 <img src="img/logo.gif" class="splashLogo" >
+        </div>
+   </div>
+   <div id="header"></div>
+   <div id="content">
+      <!-- 机票查询-->
+        <div id="Query" class="panel" title="" selected="true"  data-header="queryHeader" >
+            <header id="queryHeader">
+                   <h1 class="HEADERTITLE">机票查询</h1>           
+            </header>
+            <div class="container">
+                <ul class="ul-ui">
+                      <li class="li-ui li-top-radius">
+                       
+                         <label class="labelHeight">出发城市:</label>
+                             <span class="liSpan">
+                                 <select name="出发城市" id="airFromCity" class="_select">
+                                            <option value="出发城市" selected>出发城市</option>
+                                            <option value="上海">上海</option>
+                                            <option value="北京">北京</option>
+                                            <option value="南京">南京</option>
+                                </select>
+                              </span>
+           
+                      </li>
+                      <li class="li-ui">
+                         <label class="labelHeight">目的城市:</label>
+                        <span class="liSpan">
+                            <select name="目的城市" id="airToCity" class="_select">
+                                        <option value="目的城市" selected>目的城市</option>
+                                        <option value="上海">上海</option>
+                                        <option value="北京">北京</option>
+                                        <option value="南京">南京</option>
+                            </select>
+                          </span>
+                      </li>
+                      <li class="li-ui">
+                        <label class="labelHeight">航班类型:</label>
+                        <span class="liSpan">
+                            <select name="航班类型" id="Flight" disabled class="_disabled">
+                              <option value="single" selected>单程</option>
+                              <option value="double">往返</option>
+                            </select>
+                        </span>
+                      </li>
+                    
+                     <li class="li-ui">
+                        <label class="labelHeight">出发时间:</label><span class="pickDate liSpan" id="date"  />2012-09-03</span>
+                    </li>
+                      <li class="li-ui li-bottom-radius">
+                        <label><button  class="ui-btn-text" id="QueryFlight">机票查询</button></label>
+                    </li>
+                 </ul>
+            </div>
+   	   </div> 
+    
+      <!-- Calendar选择日期-->
+      <div id="Calendar" class="panel" title=" " data-header="calendarHeader">
+            <header id="calendarHeader">
+                   <div class="backImg"  id="backButton"></div>
+                   <h1 class="HEADERTITLE">日期选择</h1>
+            </header>
+           <div id="dateContent" class="container"> 
+           </div>
+   	  </div> 
+      
+      <!--航班信息显示页面 -->
+      <div id="FlightInfo" class="panel" title=" " data-header="flightInfoHeader">
+            <header id="flightInfoHeader">
+                   <div id="reQuery" class="backImg" onClick="Controller.reQuery();">重新查询</div>
+                   <h1 class="HEADERTITLE" id="FlightFromdate">航班信息</h1>
+                   <div id="flightCalendar" class="helpbutton" onClick="Controller.reShowDate();">航班日历</div>
+            </header>
+           <div class="flightContainer"> 
+                <ul id="FlightList">
+                </ul> 
+           </div>
+   	  </div> 
+     <!-- 用户注册和登录界面-->
+     <div id="LoginRegister" class="panel" title=" "   data-header="LoginRegisterHeader">
+            <header id="LoginRegisterHeader">
+                 <div class="backImg"  id="backButton">返回</div>
+                 <h1 class="HEADERTITLE" id="LoginTitle">登录</h1>
+            </header>
+           <div class="container"> 
+                  <ul class="ul-ui">
+                    <li class="li-ui li-top-radius">
+                      <label  class="labelHeight">用户名：</label>
+                      <input type="text" name="Name" id="Name" value="" class="pickDate"/>
+                    </li>
+                    <li class="li-ui">
+                      <label class="labelHeight">密&nbsp;&nbsp;码：</label>
+                      <input type="password" name="Password" id="Password" value="" class="pickDate"/>
+                    </li>
+                    <li class="li-ui li-bottom-radius">
+                        <label > <button  class="login-btn1-text" id="LoginButton1">注册</button> </label>
+                        <label >  <button   class="login-btn2-text" id="LoginButton2">登录</button> </label>
+                        
+                     </li>
+                  </ul>
+           </div>
+   	  </div>
+     <!-- 填写订单-->
+     <div id="FillAirOrder" class="panel" title=" "    data-header="FillAirOrderHeader" data-pull-scroller="true">
+            <header id="FillAirOrderHeader">
+                 <div class="backImg"  id="backButton">返回</div>
+                 <h1 class="HEADERTITLE" id="LoginTitle">填写订单</h1>
+            </header>
+                 <div class="container">
+                              <ul class="ul-ui">
+                                    <li class="order-li li-top-radius">
+                                      <span for="company " id="company">中国航空公司CA1518</span><span  class="fright" id="fromdata">2012年8月31日</span>
+                                    </li>
+                                    <li class="order-li">
+                                           <p class="lineHeight"><span  id="fromCity">上海</span> <span class="fright" id="toCity">北京</span></p>
+                                           <p class='lineHeight'><span  id="ftime">12:00起飞 </span> <span class="fright" id="totime">15:00到达</span></p>
+                                           <p class="lineHeight"><span  id="fromport">上海浦东机场 </span> <span class="fright" id="toport">北京首都机场</span></p>
+                                    </li>
+                                    <li class="order-li">
+                                      <span>机建燃油费(成人)</span>
+                                      <span  class="fright"><span id="fule">150</span>元/人</span>
+                                    </li>
+                                    <li class="order-li">
+                                      <span >票价(成人)</span>
+                                      <span  class="fright" ><span id="price">3160</span>元/人</span>
+                                    </li>
+                                    <li class="order-li">
+                                      <span>总价(成人)</span>
+                                      <span  class="fright"> <span id="total">3310</span>元/人</span>
+                                    </li>
+                                    <li class="order-li li-bottom-radius">
+                                      <span for="FromCity ">退改签规则</span>
+                                    </li>
+                              </ul>
+    
+                              <ul class="ul-ui">
+                                    <li class="order-li li-top-radius">
+                                      <span >选择乘机人</span>
+                                      <span  class="fright" id="addPassengerBtn">新增乘机人</span>
+                                    </li>
+                                    <li class="order-li li-bottom-radius" id="PassengerList">
+                                    </li>
+                              </ul>
+    
+                              <ul class="ul-ui">
+                                    <li class="order-li li-top-radius">
+                                      <span>预订人信息</span>
+                                    </li>
+                                    <li class="order-li">
+                                      <label  class="labelHeight">姓名</label>
+                                      <input type="text" name="bookName" id="bookName" value="" class="pickDate"/>
+                                    </li>
+                                    <li class="order-li li-bottom-radius">
+                                      <label  class="labelHeight" >电话</label>
+                                      <input type="text" name="bookPhone" id="bookPhone" maxlength='11' value="" class="pickDate"/>
+                                    </li>
+                              </ul>
+                      </div>
+                      <div class="orderFooter">
+                             <span>订单总价<span id="amount">0</span>元</span> <button type="submit"  class="submitOrder-btn" id="submitOrder">提交订单</button>
+                      </div>
+             
+   	  </div>
+      <!-- 新增乘机人界面-->
+     <div id="AddPassenger" class="panel" title=" "  data-header="AddPassengerHeader">
+            <header id="AddPassengerHeader">
+                 <div class="backImg"  id="backButton">返回</div>
+                 <h1 class="HEADERTITLE" id="LoginTitle">新增乘机人信息</h1>
+            </header>
+            <div class="container"> 
+                  <ul class="ul-ui">
+                    <li class="order-li li-top-radius">
+                      <label  class="labelHeight">真实姓名：</label>
+                      <input type="text" name="RealName" id="RealName" value="" class="pickDate"/>
+                    </li>
+                    <li class="order-li">
+                      <label  class="labelHeight">身份证号：</label>
+                      <input type="text" name="IdNum" id="IdNum" value="" class="pickDate"/>
+                    </li>
+                     <li class="order-li">
+                      <label  class="labelHeight">移动电话：</label>
+                      <input type="text" name="PhoneNum" id="PhoneNum" maxlength='11' value="" class="pickDate"/>
+                    </li>
+                    <li class="order-li li-bottom-radius">
+                        <label > <button type="submit" class="login-btn1-text" id="Refill">重填</button></label>
+                           <label >  <button type="submit"  class="login-btn2-text" id="submitAddPassengr">提交</button></label>
+                         
+                     </li>
+                  </ul>
+           </div>
+   	  </div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="xface.js"></script>
+<!--<script src="http://192.168.2.39:8088/target/target-script-min.js#anonymous"></script>-->
+<script type="text/javascript" src="ui/jq.ui.min.js"></script> 
+<script type="text/javascript" src="core/jq.mobi.min.js"></script> 
+<script type="text/javascript" src="js/viewport.adapter.js"></script> 
+<script type="text/javascript" src="js/Controller.js"></script> 
+<script type="text/javascript" src="js/Model.js"></script> 
+<script type="text/javascript" src="js/ajaxService.js"></script> 
+<script type="text/javascript" src="js/CITY_FLIGHT_DATA.js"></script> 
+<script type="text/javascript" src="js/view/QueryPage.js"></script>
+<script type="text/javascript" src="js/view/datePicker.js"></script>
+<script type="text/javascript" src="js/view/FlightInfo.js"></script>
+<script type="text/javascript" src="js/view/LoginRegister.js"></script>
+<script type="text/javascript" src="js/view/FillAirOrderPage.js"></script>
+<script type="text/javascript" src="js/view/AddPassengerPage.js"></script>
+<script type="text/javascript">
+  /*This function runs once the page is loaded, but appMobi is not yet active */
+	var webRoot="./kitchensink/";
+	$.ui.autoLaunch=false;
+    $.ui.openLinksNewTab=false;
+    var init = function(){
+	   $.ui.backButtonText="返回";  
+	   window.setTimeout(function(){$.ui.launch();},1500);
+       //$.ui.removeFooterMenu(); This would remove the bottom nav menu
+    };
+    document.addEventListener("DOMContentLoaded",init,false);  
+</script>
+
+</html>

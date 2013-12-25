@@ -1,0 +1,38 @@
+table{
+	-webkit-border-radius:15px 15px 0 0;
+	border:1px solid #6FACD5;
+	background:-webkit-gradient(linear,left top,left bottom,from(#6FACD5),to(#fff));
+	font-weight:bold;
+	margin: 10px auto;
+}
+td{
+	border:1px solid #FFF;
+	border-collapse:collapse;
+	text-align:center;
+	width:75px;
+	height:60px;
+}
+.text{
+	font-size:18pt;
+	font-weight:bold;
+}
+.tdLeftRadius{
+	-webkit-border-top-left-radius:15px;
+}
+.tdrightRadius{
+	-webkit-border-top-right-radius:15px;
+}
+td.text:hover{
+	background:#6FACD5;
+	font-size:28px;
+	color:#fff;
+}
+.Focus{
+	background:#6FACD5;
+	font-size:28px;
+	color:#fff;
+}
+.titleFont{
+	font-size:18pt;
+	font-weight:bold;
+}

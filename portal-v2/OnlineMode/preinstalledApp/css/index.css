@@ -1,0 +1,311 @@
+html{overflow:hidden;}
+html,body{background:#f9f9f9;};
+body{ margin:0; padding:0;  background-size:100% 100%;background-color:#f9f9f9;}
+*{margin:0;padding:0;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);}
+
+.backImg{ width:100px; height:38px; display:inline-block; position:absolute; left:5px; top:5px; z-index:100; background:-webkit-gradient(linear,left top,left bottom,from(#5F9CC5),to(#396B9E)); border: 1px solid #044062; color:#fff; font-size:18pt; line-height:38px; font-weight:bold; -webkit-border-radius:10px; border-radius:10px;}
+.helpbutton{width:100px; height:38px; display:inline-block; position:absolute; right:5px;  z-index:100; top:5px; z-index:100; background:-webkit-gradient(linear,left top,left bottom,from(#5F9CC5),to(#396B9E)); border: 1px solid #044062; color:#fff; font-size:18pt; line-height:38px; font-weight:bold; -webkit-border-radius:10px; border-radius:10px; text-decoration:none;}
+/*********************splashScreen***********************/
+ul,li{
+	list-style:none;
+}
+.fright{
+	float:right;
+}
+.lineHeight{
+	line-height:30px;
+	margin-bottom:5px;
+	background:#f9f9f9;
+}
+.splashLoading{
+	background:#F60; 
+	height:45px; 
+	width:200px; 
+	right:0px; 
+	color:#FFFFFF;
+	font-weight:bold;
+	position:absolute; 
+	font-size:18pt;
+	line-height:50px;
+}
+.splashCenter{
+	margin-top:100px;
+}
+.splashBg{
+	width:200px;
+	height:200px;
+	margin-top:30px;
+}
+.splashBottom{
+	position:absolute;
+	width:100%;
+	bottom:20%;
+	height:44px;
+	line-height:44px;
+	text-align:left;
+	padding-left:20px;
+	padding-top:25px; 
+	color:#FFF;
+	font-size:18pt;
+	font-weight:bold;
+	text-shadow:1px 1px 1px #666666;
+}
+.splashLogo{
+	width:82px; 
+	height:44px;
+    position:absolute;
+	right:40px;
+}
+.splashTitle{
+	text-align:center;
+	text-shadow:5px 2px 6px #fff; 
+	font-family:'微软雅黑'; 
+	font-size:25pt; 
+	font-weight:bolder
+}
+.container{
+	background:#f9f9f9;
+	padding:30px 15px;
+}
+.flightContainer{
+	background:#f9f9f9;
+	padding:0;
+}
+.orderContainer{
+	background:#f9f9f9;
+	padding:30px 15px 0;
+}
+span.liSpan{
+	display:inline-block;
+	margin:0 auto;
+}
+/*机票和火车票查询页面*/
+ul.ul-ui{
+	width:450px;
+	margin:0 auto;
+	display: block;
+	list-style:none;
+	border: 1px solid rgba(0, 0, 0, .3);
+	-webkit-border-radius:10px;
+	-webkit-box-shadow: 0px 1px 4px  rgba(0, 0, 0, .3) ;
+    box-shadow: 0px 1px 4px  rgba(0, 0, 0, .3) ;
+	margin-bottom:20px;
+}
+.order-li{
+	width:420px;
+	background:#f9f9f9;
+	padding: 10px 15px;
+    display: block;
+	line-height:30px;
+	list-style:none;	
+	border: 1px solid rgba(0, 0, 0, .3);
+	font-size:18pt;
+	font-weight:bold;
+	-webkit-box-shadow: 0px 1px 4px  rgba(0, 0, 0, .3) ;
+    box-shadow: 0px 1px 4px  rgba(0, 0, 0, .3) ;
+}
+.li-top-radius{
+	-webkit-border-top-left-radius:10px;
+	-webkit-border-top-right-radius:10px;
+}
+.li-bottom-radius{
+	-webkit-border-bottom-left-radius:10px;
+	-webkit-border-bottom-right-radius:10px;
+}
+.li-ui{	
+    width:420px;
+	line-height:30px;
+	padding: 10px 15px;
+    display: block;
+	list-style:none;	
+	border: 1px solid rgba(0, 0, 0, .3);
+	font-size:22pt;
+	font-weight:bold;
+	-webkit-box-shadow: 0px 1px 4px  rgba(0, 0, 0, .3) ;
+    box-shadow: 0px 1px 4px  rgba(0, 0, 0, .3) ;
+}
+.pickDate{
+	display:inline-block;
+	border:1px solid rgba(0, 0, 0, .3);
+	-webkit-border-radius:4px;
+	height:40px;
+	width:250px;
+	font-size:22pt;
+	padding-left:10px;
+	line-height:40px;
+	vertical-align:top;
+	-webkit-box-shadow: inset 0px 1px 4px rgba(0, 0, 0, .2);
+    box-shadow: inset 0px 1px 4px rgba(0, 0, 0, .2);
+}
+.labelHeight{
+	width:125px;
+	height:35px;
+	font-size:18pt;
+	line-height:35px;
+	display:inline-block;
+}
+.ui-btn-text{
+	width:420px;
+	text-align:center;
+	margin:0 auto;
+	height:50px;
+	color:#FFFFFF;
+	font-size:20pt;
+	font-weight:bold;
+	line-height:50px;
+	border:1px solid #6FACD5;
+	-webkit-border-radius:10px;
+	background:-webkit-gradient(linear,left top,left bottom,from(#6FACD5),to(#497BAE));
+}
+
+.login-btn1-text{
+	width:200px;
+	text-align:center;
+	margin:0 auto;
+	height:50px;
+	font-size:22pt;
+	font-weight:bold;
+	line-height:50px;
+	border: 1px #BBB solid;
+	color: #333;
+	font-weight: bold;
+	text-shadow: white 0px 1px 0px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.296875) 0px 1px 4px;
+	-webkit-border-radius:10px;
+	background:-webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#F6F6F6));
+}
+.login-btn2-text{
+	width:200px;
+	text-align:center;
+	margin:0 auto;
+	height:50px;
+	font-size:22pt;
+	font-weight:bold;
+	line-height:50px;
+	border: 1px #111 solid;
+	color: #fff;
+	font-weight: bold;
+	text-shadow: #111 0px 1px 1px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.296875) 0px 1px 4px;
+	-webkit-border-radius:10px;
+	background:-webkit-gradient(linear,left top,left bottom,from(#444),to(#2D2D2D));
+}
+.orderFooter{
+	width:100%;
+	display:inline-block;
+	color:white;
+	padding:2px 5px;
+	line-height:48px;
+	font-size:16pt;
+	font-weight:bold;
+	background:#333;
+}
+.submitOrder-btn{
+	width:110px;
+	text-align:center;
+	float:right;
+	margin:0 10px;
+	height:46px;
+	font-size:16pt;
+	font-weight:bold;
+	line-height:46px;
+	border: 1px #111 solid;
+	color: #fff;
+	font-weight: bold;
+	text-shadow: #111 0px 1px 1px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.296875) 0px 1px 4px;
+	-webkit-border-radius:10px;
+	background:-webkit-gradient(linear,left top,left bottom,from(#444),to(#2D2D2D));
+}
+/*航班信息列表样式*/
+#FlightList{
+	margin-top:2px;
+}
+.flightListLi{
+	line-height:40px;
+	margin-bottom:10px;
+	color:#000;
+}
+.pheader{
+	padding:0 5px;
+	font-weight:bold;
+	background:#6FACD5;
+	font-size:17pt;
+}
+.infoP{
+	padding:0 5px;
+}
+.infoP > span{
+	display:inline-block;
+	font-size:15pt;
+	width:130px;
+	text-align:center;
+}
+span.price{
+	width:75px;
+}
+span.orderBtn{
+	color:#000;
+	height:36px;
+	width:70px;
+	font-weight:bold;
+	line-height:36px;
+	border: 1px #111 solid;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.296875) 0px 1px 4px;
+	-webkit-border-radius:10px;
+	float:right;
+	margin-top:2px;
+	background:-webkit-gradient(linear,left top,left bottom,from( white), to( #eee ));
+}
+#PassengerList > p{
+	line-height:40px;
+	width:420px;
+	background:#f9f9f9;
+	display:inline-block;
+	border-bottom:1px solid #333;
+}
+/**********************Loading**********************/
+.MASK{
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background:url(../img/black_bg.png)repeat;
+}
+.LOADING{
+    position: absolute;
+    top: 46%;
+    width: 80%;
+    left: 10%;
+    border: solid 1px #ffffff;
+    background: #333333;
+    padding: 10px;
+    -webkit-animation-name: fade_in_all;
+    -webkit-animation-duration: 300ms;
+    -webkit-animation-timing-function:ease-in;
+}
+.LOADING_IMG{
+    height: 37px;
+    width: 12%;
+    background:url(../img/loading.gif) no-repeat;
+    vertical-align: middle;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+.LOADING_CONTENT{
+    height: 37px;
+    width: 87%;
+    font-size: 20pt;
+    font-weight: bold;
+    padding-top: 10px;
+    color: #ffffff;
+    text-shadow: 0 0 6px #007eff;
+    display: inline-block;
+    text-align: center;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}

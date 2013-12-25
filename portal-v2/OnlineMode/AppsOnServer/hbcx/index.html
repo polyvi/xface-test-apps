@@ -1,0 +1,65 @@
+﻿<!DOCTYPE HTML>
+<html manifest="hbcx.manifest">
+<head>
+<script type="text/javascript" src="viewport.adapter.js?width=480"></script>
+<script type="text/javascript" src="xface.js"></script>
+<style>
+    html,body{
+        width: 480px;
+        height: 100%;
+    }
+	body {
+		padding:0;
+		margin:0;
+	}
+	h1 {
+		width:100%;
+		text-align:center;
+		margin:0;
+		padding:0;
+		color:#109dee;
+	}
+	.detail{
+		border-top:1px solid #ccc;
+		font-size:17pt;
+		line-height:35px;
+		text-indent:2em;
+		padding:10px;
+		margin-top:10px;
+	}
+	img{
+		margin-top:20px;
+		border-radius:10px;
+	}
+	.quit{
+		width:100%;
+		text-align:center;
+	}
+	.quitbtn{
+		width:300px;
+		height:50px;
+		font-size:17pt;
+		border-radius:8px;
+	}
+</style>
+<script>
+	document.addEventListener('deviceready', function(){
+		document.addEventListener('backbutton', closeApp, false);
+	});
+	
+	function closeApp(){
+        navigator.notification.confirm("确定退出本应用？", function(index){
+            if(1==index)xFace.app.close();
+        },"提示","确定,取消");
+	}
+</script>
+</head>
+<body>
+<div><img src="css/img/r1.png" /></div>
+<p>
+<h1>航班查询</h1>
+<div class="detail">可随时随地查询实时航班信息，订购机票操作方便快捷。提供了全套的机票服务，可灵活自由的规划出行，畅享轻松旅程。<br/>同时，免费快递行程单，轻松解决商务人士报销需求。</div>
+</p>
+<div class="quit"><input type="button" value="退出" class="quitbtn" onClick="closeApp()"/></div>
+</body>
+</html>

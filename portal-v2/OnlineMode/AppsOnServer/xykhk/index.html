@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML>
+<html manifest="xykhk.manifest">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<script type="text/javascript" src="js/viewport.adapter.js?width=480"></script>
+<script type="text/javascript" src="xface.js"></script>
+<style>
+	body {
+		width:480px;
+		padding:0;
+		margin:0;
+	}
+	h1 {
+		width:100%;
+		text-align:center;
+		margin:0;
+		padding:0;
+		color:#109dee;
+	}
+	.detail{
+		border-top:1px solid #ccc;
+		font-size:17pt;
+		line-height:35px;
+		text-indent:2em;
+		padding:10px;
+		margin-top:10px;
+	}
+	img{
+		margin-top:20px;
+		border-radius:10px;
+	}
+	.quit{
+		width:100%;
+		text-align:center;
+	}
+	.quitbtn{
+		width:300px;
+		height:50px;
+		font-size:17pt;
+		border-radius:8px;
+	}
+</style>
+<script>
+	document.addEventListener('deviceready', function(){
+		document.addEventListener('backbutton', closeApp, false);
+	})
+	
+	function closeApp(){
+		   navigator.notification.confirm("确定退出本应用？", function(index){
+            if(1==index)xFace.app.close();
+        },"提示","确定,取消")
+	}
+</script>
+</head>
+<body>
+<div> <img src="css/img/r1.png" /> </div>
+<p>
+<h1>信用卡还款</h1>
+<div class="detail">还款方便，快捷，操作简单，可随时随地自由还款，不再为还信用卡到处奔波，是您最佳的还款选择。支持跨行跨地区的信用卡还款，并且没有任何手续费。目前还可免费设置还款到期日短信提醒，不再因忘记还款而苦恼。</div>
+</p>
+<div class="quit"><input type="button" value="退出" class="quitbtn" onClick="closeApp()"/></div>
+</body>
+</html>
