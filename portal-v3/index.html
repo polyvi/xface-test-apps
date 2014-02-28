@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="view/res/common.css"/>
+    <link rel="stylesheet" href="component/dialog/dialog.css"/>
+    <script src="xface.js"></script>
+    <!--<script type="text/javascript" debug="true" src="xdebug.js" host="192.168.2.130"></script>-->
+    <script src="libs/xcube/xcube.js" mark="$" xtag="true"></script>
+    <script src="libs/zepto.js"></script>
+    <script>
+        if(Zepto.os.ios){
+            document.write('<meta name="viewport" content="width='+(Zepto.os.ipad?"device-width":"480")+',user-scalable=no">');
+        }else{
+            if(Zepto.os.tablet)document.write('<meta name="viewport" content="width=device-width,user-scalable=no,target-densitydpi=medium-dpi">');
+            else document.write('<meta name="viewport" content="width=device-width,user-scalable=no,target-densitydpi=high-dpi">');
+        }
+    </script>
+    <script src="component/dialog/Dialog.js"></script>
+    <script src="component/GridView.js"></script>
+    <script src="main.js"></script>
+    <script src="libs/xcube/xmesh.js"></script>
+    <script src="util/Service.js"></script>
+    <script src="util/Extend.js"></script>
+    <script src="util/XAudio.js"></script>
+</head>
+<body>
+<xtag:PageManager
+        id="pageManager"
+        invokeScript="true"
+        onloadPage="onLoadNewPage(event)"
+        onloadError="onLoadError(event)">
+</xtag:PageManager>
+<iframe id="hidden_window" style="display: none"></iframe>
+<div class="loading" data-loading-type="center">
+    <div>
+        <div class="ball">
+            <div></div>
+        </div>
+    </div>
+</div>
+<div class="loading" data-loading-type="top">
+    <div>
+        <div class="wInnerBall"></div>
+        <div class="wInnerBall"></div>
+        <div class="wInnerBall"></div>
+        <div class="wInnerBall"></div>
+        <div class="wInnerBall"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,206 @@
+.borderBox {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+.foucs_background_purple {
+  background: -webkit-gradient(linear, left top, left bottom, from(#a265e6), to(#a06bdc), color-stop(0.5, #965ad9), color-stop(0.5, #8246c6));
+  background: -moz-linear-gradient(top, #a265e6, #965ad9 50%, #8246c6 50%, #a06bdc);
+}
+#home {
+  background: url("images/bg.jpg") no-repeat;
+  background-size: cover;
+}
+#home .apps_list_content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+}
+#home .apps_list_content .waiting {
+  display: block;
+  width: 60px;
+  height: 60px;
+  background: url("images/loading_empty.gif") no-repeat;
+  margin: auto;
+  margin-top: 200px;
+}
+#home .apps_list_content > div {
+  color: #ffffff;
+  font-weight: bolder;
+}
+#home .apps_list_content.error > div:empty:after {
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding: 30px 0 10px 0;
+  content: "应用列表读取失败,请尝试重新启动应用";
+}
+#home .apps_list_content.empty > div:empty:after {
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding: 30px 0 10px 0;
+  content: "未安装任何应用";
+}
+#home .apps_list_content.empty > div:before {
+  display: none;
+}
+#home .apps_list_content .app_item {
+  -webkit-backface-visibility: hidden;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  color: #ffffff;
+  background-color: rgba(105, 166, 209, 0.7);
+}
+#home .apps_list_content .app_item:active {
+  background-color: rgba(255, 104, 79, 0.7);
+}
+#home .apps_list_content .app_item:nth-child(2n) {
+  background-color: rgba(80, 122, 209, 0.7);
+}
+#home .apps_list_content .app_item:nth-child(2n+1) {
+  background-color: rgba(209, 88, 66, 0.7);
+}
+#home .apps_list_content .app_item:nth-child(3n) {
+  background-color: rgba(255, 145, 161, 0.7);
+}
+#home .apps_list_content .app_item:nth-child(3n+1) {
+  background-color: rgba(86, 204, 140, 0.7);
+}
+#home .apps_list_content .app_item:nth-child(1) {
+  background-color: rgba(86, 204, 140, 0.7);
+}
+#home .apps_list_content .app_item.deleting {
+  opacity: .5;
+  transform: scale(0, 0);
+  -webkit-transform: scale(0, 0);
+  -moz-transform: scale(0, 0);
+}
+#home .apps_list_content .app_item .update_mark {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background: url("images/update_mark.png") no-repeat center;
+}
+#home .apps_list_content .app_item.update .update_mark {
+  display: block;
+}
+#home .apps_list_content .app_item > img {
+  width: 50%;
+  height: 50%;
+  margin: 20% 25%;
+}
+#home .apps_list_content .app_item label {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  display: block;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+#home .apps_list_content .app_item[active] {
+  -webkit-transform: scale(1.1, 1.1);
+  opacity: .8;
+}
+#home .right_nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  z-index: 399;
+  overflow: hidden;
+}
+#home .right_nav .right_top > div {
+  transition-property: left;
+  -webkit-transition-property: left;
+  -moz-transition-property: left;
+  transition-duration: 300ms;
+  -moz-transition-duration: 300ms;
+  -webkit-transition-duration: 300ms;
+  transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+  position: absolute;
+}
+#home .right_nav .right_top .logo {
+  top: 20px;
+  left: 22px;
+  width: 56px;
+  height: 56px;
+  background: url("images/logo.png") no-repeat;
+}
+#home .right_nav .right_top .dustbin {
+  left: 100px;
+  top: 0;
+  width: 72px;
+  height: 72px;
+  background: url("images/dustbin.png") no-repeat;
+  background-position: 0 0;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#home .right_nav .right_top .dustbin.active {
+  background-position: -72px 0;
+}
+#home .right_nav .right_top .dustbin.deleting {
+  background-image: url("images/dustbin_ing.gif");
+}
+#home .right_nav .right_top.manager .logo {
+  left: 100px;
+}
+#home .right_nav .right_top.manager .dustbin {
+  left: 9px;
+}
+#home .right_nav .button_list {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+}
+#home .right_nav .button_list > li {
+  margin: auto;
+  width: 56px;
+  height: 56px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+  border-radius: 28px;
+}
+#home .right_nav .button_list > li:active {
+  box-shadow: 0 0 7px 5px #ffffff;
+}
+#home .right_nav .button_list > li.add {
+  background-image: url("images/add.png");
+}
+#home .right_nav .button_list > li.download {
+  background-image: url("images/downloaded.png");
+}
+#home .right_nav .button_list > li.setting {
+  background-image: url("images/setting.png");
+}
+html[platform='ios'][osver^="7"] #home [data-role='content'] {
+  margin-top: 20px;
+}
+html[platform='ios'][osver^="7"] #home .apps_list_content {
+  -webkit-backface-visibility: visible !important;
+}
+html[platform='ios'][osver^="7"] #home .apps_list_content .app_item {
+  -webkit-backface-visibility: visible !important;
+}

@@ -1,0 +1,287 @@
+.borderBox {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+.foucs_background_purple {
+  background: -webkit-gradient(linear, left top, left bottom, from(#a265e6), to(#a06bdc), color-stop(0.5, #965ad9), color-stop(0.5, #8246c6));
+  background: -moz-linear-gradient(top, #a265e6, #965ad9 50%, #8246c6 50%, #a06bdc);
+}
+#appCenter {
+  background: #ffffff;
+}
+#appCenter .menu {
+  position: absolute;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#appCenter .menu[data-menu] {
+  height: 100%;
+}
+#appCenter .menu[data-menu='classify'] #classify {
+  display: block;
+}
+#appCenter .menu[data-menu='order'] #order {
+  display: block;
+}
+#appCenter .menu .radio button {
+  background-color: #f0f4f6;
+  display: block;
+  height: 60px;
+  font-size: 23px;
+  border-bottom: solid 2px #e3e3e3;
+  width: 50%;
+  max-width: 50%;
+  min-width: 50%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+#appCenter .menu .radio button:after {
+  content: " ";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  margin-left: 10px;
+  background: url("images/arrow.png") no-repeat;
+}
+#appCenter .menu .radio button.checked:after {
+  background-position: -20px 0;
+}
+#appCenter .menu .radio button:first-child {
+  border-right: dashed 1px #e3e3e3;
+}
+#appCenter .menu .radio button:last-child {
+  border-left: dashed 1px #e3e3e3;
+}
+#appCenter .menu > nav {
+  display: none;
+  position: absolute;
+  width: 100%;
+  top: 60px;
+  left: 0;
+  -webkit-transform-origin: top center;
+  -webkit-animation: showMenu 220ms ease-out;
+}
+#appCenter .menu > nav button {
+  box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  display: block;
+  height: 140px;
+  background-color: #f0f4f6;
+  border: solid 1px #e3e3e3;
+}
+#appCenter .menu > nav button .icon {
+  display: block;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  background: url("images/icon/1.png") no-repeat;
+  background-position: 0 0;
+}
+#appCenter .menu > nav button:active .icon {
+  background-position: -50px 0;
+}
+#appCenter .menu > nav button label {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 19px;
+}
+#appCenter .menu > nav#order button {
+  width: 50%;
+  max-width: 50%;
+  min-width: 50%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+#appCenter .menu > nav#order .recommend .icon {
+  background-image: url("images/icon/10.png");
+}
+#appCenter .menu > nav#order .publishDate .icon {
+  background-image: url("images/icon/9.png");
+}
+#appCenter .appList {
+  position: absolute !important;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+#appCenter .appList #pull_refresh {
+  height: 60px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  overflow: hidden;
+  text-align: center;
+  background-color: #faf5f5;
+  font-size: 18px;
+  line-height: 60px;
+}
+#appCenter .appList #pull_refresh:after {
+  content: "上拉加载更多";
+}
+#appCenter .appList #pull_refresh.snap:after {
+  content: "松开加载更多";
+}
+#appCenter .appList.error .wrapper:empty:before {
+  content: " ";
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin: 40px auto 20px;
+  background: url("images/cry_face.png") no-repeat;
+}
+#appCenter .appList.error .wrapper:empty:after {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  color: #5d5d61;
+  content: "数据加载失败";
+}
+#appCenter .appList .appItem {
+  font-size: 19px;
+  border-bottom: solid 1px #e3e3e3;
+}
+#appCenter .appList .appItem .icon {
+  width: 120px;
+  max-width: 120px;
+  min-width: 120px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+#appCenter .appList .appItem .icon img {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+#appCenter .appList .appItem .info {
+  padding: 15px;
+}
+#appCenter .appList .appItem .info .name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 27px;
+  font-weight: bold;
+}
+#appCenter .appList .appItem .info .updateTime {
+  font-size: 15px;
+  color: #cbcbcb;
+}
+#appCenter .appList .appItem .info .hearts {
+  width: 124px;
+  height: 24px;
+  max-height: 24px;
+  min-height: 24px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  overflow: hidden;
+  background: url("images/star.png") no-repeat;
+  background-position: 0 0;
+}
+#appCenter .appList .appItem .info .hearts[data-star='1'] {
+  background-position: 0 -24px;
+}
+#appCenter .appList .appItem .info .hearts[data-star='2'] {
+  background-position: 0 -48px;
+}
+#appCenter .appList .appItem .info .hearts[data-star='3'] {
+  background-position: 0 -72px;
+}
+#appCenter .appList .appItem .info .hearts[data-star='4'] {
+  background-position: 0 -96px;
+}
+#appCenter .appList .appItem .info .hearts[data-star='5'] {
+  background-position: 0 -120px;
+}
+#appCenter .appList.grid .appItem {
+  display: box;
+  display: -moz-box;
+  display: -webkit-box;
+  box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  width: 33.33333333333333%;
+  max-width: 33.33333333333333%;
+  min-width: 33.33333333333333%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  display: inline-block;
+  border-right: solid 1px #e3e3e3;
+}
+#appCenter .appList.grid .appItem .icon {
+  width: 100px;
+  max-width: 100px;
+  min-width: 100px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin: auto;
+}
+#appCenter .appList.grid .appItem .icon img {
+  margin: 10px 0;
+}
+#appCenter .appList.grid .appItem:nth-child(3n) {
+  border-right: none;
+}
+#appCenter .appList.grid .appItem .updateTime {
+  display: none;
+}
+#appCenter .appList.grid .appItem .info {
+  padding: 0;
+}
+#appCenter .appList.grid .appItem .info .name {
+  text-align: center;
+  margin-bottom: 6px;
+}
+#appCenter .appList.grid .appItem .info .hearts {
+  margin: auto;
+}
+#appCenter .fixed_tool {
+  position: absolute;
+  right: 10px;
+  bottom: 70px;
+  width: 40px;
+  background: rgba(10, 10, 10, 0.2);
+  border-radius: 7px;
+  padding: 8px 5px;
+}
+#appCenter .fixed_tool button {
+  width: 36px;
+  height: 36px;
+  display: block;
+  margin: auto;
+}
+#appCenter .fixed_tool button.listStyle {
+  margin-top: 3px;
+  margin-bottom: 10px;
+  background: url("images/list_style_btn.png") no-repeat;
+  background-size: cover;
+}
+#appCenter .fixed_tool button.top {
+  background: url("images/scroll_top_btn.png") no-repeat;
+  background-size: cover;
+}
+@-webkit-keyframes showMenu {
+  from {
+    opacity: .5;
+    -webkit-transform: scale(0, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1, 1);
+  }
+}

@@ -1,0 +1,133 @@
+.borderBox {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+.foucs_background_purple {
+  background: -webkit-gradient(linear, left top, left bottom, from(#a265e6), to(#a06bdc), color-stop(0.5, #965ad9), color-stop(0.5, #8246c6));
+  background: -moz-linear-gradient(top, #a265e6, #965ad9 50%, #8246c6 50%, #a06bdc);
+}
+#downloadManager #scroller {
+  position: absolute !important;
+}
+#downloadManager .shake {
+  width: 200px;
+  padding: 12px 23px;
+  display: none;
+  background-color: #5fbc8c;
+  color: #ffffff;
+  margin: auto;
+  margin-top: 120px;
+  font-size: 19px;
+}
+#downloadManager .download_list:empty {
+  padding-top: 20px;
+}
+#downloadManager .download_list:empty + .shake {
+  display: block;
+}
+#downloadManager .download_list:empty:before {
+  display: block;
+  content: "你的下载列表还是空的";
+  font-size: 20px;
+  color: #5d5d61;
+  line-height: 252px;
+  text-align: center;
+  width: 100%;
+  height: 126px;
+  margin: 40px auto 20px;
+  background: url("images/empty.png") no-repeat;
+  background-position: center;
+}
+#downloadManager .download_list li {
+  margin: 0;
+  padding: 0;
+  border-bottom: solid 1px #d7d7e1;
+}
+#downloadManager .download_list li > div {
+  -webkit-transition-property: width, min-width, max-width;
+  -webkit-transition-duration: 300ms;
+}
+#downloadManager .download_list li .icon {
+  padding: 10px 0;
+  width: 120px;
+  max-width: 120px;
+  min-width: 120px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  overflow: hidden;
+}
+#downloadManager .download_list li .icon > img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+#downloadManager .download_list li .info {
+  box-pack: center;
+  -moz-box-pack: center;
+  -webkit-box-pack: center;
+  padding: 16px 0;
+  padding-right: 10px;
+}
+#downloadManager .download_list li .info .name {
+  padding-top: 3px;
+  font-weight: bold;
+  font-size: 28px;
+}
+#downloadManager .download_list li .info .status {
+  color: #ffa139;
+  font-size: 16px;
+}
+#downloadManager .download_list li .info .status .progress {
+  float: right;
+}
+#downloadManager .download_list li .info .progressbar {
+  display: block;
+  width: 100%;
+  height: 13px;
+  max-height: 13px;
+  min-height: 13px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #ededed;
+}
+#downloadManager .download_list li .info .progressbar > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background-color: #ffa139;
+}
+#downloadManager .download_list li .control {
+  width: 100px;
+  max-width: 100px;
+  min-width: 100px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  display: box;
+  display: -moz-box;
+  display: -webkit-box;
+  box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+}
+#downloadManager .download_list li .control button {
+  box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  display: block;
+  color: #5ad06c;
+  font-size: 22px;
+  background-color: #f0eee8;
+  border: solid 1px #bcbab5;
+  border-radius: 8px;
+  margin: 7px 5px;
+}
+#downloadManager .download_list li .control button:active {
+  color: #ffffff;
+}

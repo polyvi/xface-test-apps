@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<theme xmlns:xtag="http://polyvi.com">
+
+	<xtag:template id="blankBox">
+        display:none;
+		padding:0px;
+		margin:0px;
+	</xtag:template>
+	
+	<xtag:List>
+		<xtag:rule name=".item">
+			color:#333;
+			padding:8px 10px 8px 10px;
+			background-color:#FFF;
+			margin-bottom:1px;
+		</xtag:rule>
+		<xtag:rule name=".item" filter=":last-child">border-radius:0px 0px 10px 10px;</xtag:rule>
+		<xtag:rule name=".item" filter=":first-child">border-radius:10px 10px 0px 0px;</xtag:rule>
+  	</xtag:List>
+
+  	<xtag:ImageRoller>
+		background-color:white;
+		<img>border-width:0px;</img>
+	</xtag:ImageRoller>
+  
+	<xtag:ScrollPane>
+		<xtag:template call="blankBox"/>
+		<xtag:rule name=".scrollBar">
+			<div>
+				border:1px solid #EEE;
+				background-color:#666;
+				padding:0px;
+				margin:0px;
+				border-radius:10px;
+			</div>
+		</xtag:rule>
+	</xtag:ScrollPane>
+	
+	<xtag:PageManager>
+		<xtag:template call="blankBox"/>
+	</xtag:PageManager>
+	
+	<xtag:TileBox></xtag:TileBox>
+	
+</theme>

@@ -1,0 +1,27 @@
+.ui_container [data-role='header'] {
+  box-shadow: -1px 0px 15px -1px #000000;
+  background-color: #fdb643;
+}
+button:active,
+.button:active {
+  background-color: rgba(131, 162, 255, 0.5) !important;
+  color: #ffffff;
+}
+#home {
+  background: url("images/yellow/bg.jpg") no-repeat;
+  background-size: cover;
+}
+#appDetail .head .control #action {
+  color: #fdb643;
+  border: solid 1px #fdb643;
+}
+#appDetail .head .control #action:active {
+  background-color: #4bc0d1 !important;
+  color: #ffffff;
+}
+#setting [data-role="content"] dl dt {
+  color: #e7aa87;
+}
+#setting [data-role="content"] dl dd div:last-child label {
+  color: #fdb643 !important;
+}
