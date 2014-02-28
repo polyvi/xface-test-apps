@@ -1,0 +1,103 @@
+.borderBox {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+.foucs_background_purple {
+  background: -webkit-gradient(linear, left top, left bottom, from(#a265e6), to(#a06bdc), color-stop(0.5, #965ad9), color-stop(0.5, #8246c6));
+  background: -moz-linear-gradient(top, #a265e6, #965ad9 50%, #8246c6 50%, #a06bdc);
+}
+.loading {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  left: 0;
+}
+.loading[data-loading-type='center'] {
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.loading[data-loading-type='center'] > div {
+  height: 100%;
+  display: box;
+  display: -moz-box;
+  display: -webkit-box;
+  box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  box-pack: center;
+  -moz-box-pack: center;
+  -webkit-box-pack: center;
+  box-align: center;
+  -moz-box-align: center;
+  -webkit-box-align: center;
+}
+.loading[data-loading-type='center'] > div .ball {
+  width: 100px;
+  height: 100px;
+}
+.loading[data-loading-type='center'] > div .ball > div {
+  width: 100%;
+  height: 100%;
+  background: url("images/loading_ring.png") center no-repeat;
+  background-size: contain;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
+.loading[data-loading-type='top'] {
+  top: 10px;
+  width: 100%;
+  height: 10px;
+}
+.loading[data-loading-type='top'] > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.loading[data-loading-type='top'] > div .wInnerBall {
+  background-color: #bc4ad1;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -webkit-animation-name: bounce_followingBalls;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-iteration-count: infinite;
+}
+.loading[data-loading-type='top'] > div .wInnerBall:nth-child(1) {
+  -webkit-animation-delay: 0s;
+}
+.loading[data-loading-type='top'] > div .wInnerBall:nth-child(2) {
+  -webkit-animation-delay: 0.29s;
+}
+.loading[data-loading-type='top'] > div .wInnerBall:nth-child(3) {
+  -webkit-animation-delay: 0.58s;
+}
+.loading[data-loading-type='top'] > div .wInnerBall:nth-child(4) {
+  -webkit-animation-delay: 0.87s;
+}
+html[platform='ios'][osver^="7"] .loading[data-loading-type='top'] {
+  top: 20px;
+}
+@-webkit-keyframes bounce_followingBalls {
+  0% {
+    left: 5%;
+  }
+  50% {
+    left: 95%;
+  }
+  100% {
+    left: 5%;
+  }
+}
+@-webkit-keyframes rotate {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

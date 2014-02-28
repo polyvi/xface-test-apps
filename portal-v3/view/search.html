@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="res/search.css"/>
+    <script>
+        var page = this;
+        var actionButton = page.child("#actionButton");
+        var searchInput = page.child("#searchBox").bind("input",function(){
+            if(this.value == ""){
+                actionButton.className = "qrcode";
+                showDefaultPane();
+            }else{
+                actionButton.className = "clear";
+            }
+        }).bind("keypress",function(e){if(e.keyCode == 13)search()});
+        searchInput.val = function(value){
+            this.value = value;
+            this.trigger($.Event("input"));
+        };
+        actionButton.bind("click",function(){
+            if(this.className=="qrcode"){
+                scanQRCode();
+            }else{
+                searchInput.val("");
+                this.className = "qrcode";
+            }
+        });
+        var am = xmesh.model["ApplicationManager"],localData = xmesh.model["LocalData"];
+        var historyContent = page.child(".history");
+        (function initData(){
+            localData.SearchHistory.getHistory().forEach(function(item){
+                historyContent.append($.Element("button").html(item).val(item));
+            });
+            historyContent.bind("click",function(e){
+                if(e.target.tagName != "BUTTON")return;
+                searchInput.val(e.target.innerHTML);
+                search();
+            });
+        })();
+        function scanQRCode(){
+            $.scanQRCode(function(rs){
+                switch (rs.type){
+                    case "url":onURL(rs.code);
+                        break;
+                    case "mecard":searchInput.val("名片扫描");
+                        break;
+                    default : var str = rs.code;
+                        if(str.length>searchInput.maxLength)str = str.substring(0,searchInput.maxLength);
+                        searchInput.val(str);
+                        break;
+                }
+            });
+            function onURL(url){
+                navigator.app.openUrl(url,null,function(){
+                    Dialog.toast("设备支持该URI");
+                });
+            }
+        }
+        var tem = page.child("[data-role='template']");
+        var scroller = page.child("#scroller"),content = scroller.child(".listContent");
+        function search(){
+            var keyword = searchInput.value.trim();
+            if("" == keyword){
+                showDefaultPane();
+                return;
+            }
+            Loading.show();
+            am.searchAppOnline(keyword,function(apps){
+                Loading.hide();
+                content.empty();
+                if(!apps || !apps.length){
+                    content.append(tem.get(".noResultTip"));
+                    scroller.removeClass("empty");
+                    return;
+                }
+                apps.forEach(createResultItem);
+                scroller.removeClass("empty");
+                scroller.refresh();
+            },function(){
+                Loading.hide();
+                Dialog.toast("搜索失败请重试");
+            });
+            if(localData.SearchHistory.push(keyword)){
+                var first = historyContent.firstElementChild;
+                var historyButtons = historyContent.child("button");
+                var button = $.Element("button").html(keyword);
+                if(historyButtons){
+                    historyContent.insertBefore(button,historyButtons[0]);
+                    if(historyButtons.length>=6)historyContent.lastElementChild.remove();
+                }else{
+                    historyContent.append(button);
+                }
+            }
+        }
+        function showDefaultPane(){
+            content.empty();
+            scroller.addClass("empty");
+        }
+        function createResultItem(app){
+            var item = tem.get(".searchItem",app);
+            item.bind("click",function(){
+                xmesh.act('appDetail',app);
+            });
+            content.append(item);
+        }
+        page.child(".hot button").bind("click",function(){
+            searchInput.val(this.innerHTML);
+            search();
+        })
+    </script>
+</head>
+<body>
+<div id="search" class="ui_container">
+    <header data-role="header">
+        <button class="left back">返回</button>
+        <div class="searchArea" data-box="h">
+            <input type="text" id="searchBox" data-flex="5" maxlength="15" placeholder="请输入关键字"/>
+            <button class="search" data-flex="1" onclick="search()"></button>
+        </div>
+        <button class="qrcode" id="actionButton"></button>
+    </header>
+    <div data-role="content">
+        <xtag:ScrollPane id="scroller" class="empty">
+            <ul class="listContent"></ul>
+            <div class="default_panel">
+                <h1>历史搜索</h1>
+                <div class="history"></div>
+                <h1>搜索热词</h1>
+                <div class="hot">
+                    <button>微博</button><button>视频</button><button>浏览器</button>
+                    <button>通讯录</button><button>游戏</button><button>播放器</button>
+                    <button>输入法</button><button>头条</button><button>主题</button>
+                    <button>微信</button><button>相机</button><button>小说</button>
+                    <button>阅读</button><button>计算器</button><button>动态壁纸</button>
+                </div>
+            </div>
+        </xtag:ScrollPane>
+    </div>
+</div>
+<xtag:template data-role="template">
+    <li class="searchItem">
+        <div class="appItem button" data-box="h">
+            <div data-flex="1" class="icon">
+                <img data-property="icon"/>
+            </div>
+            <div data-flex="5" class="info" data-box="v">
+                <div class="name" data-property="name" data-flex="2"></div>
+                <div class="updateTime" data-flex="1">最近更新：<span data-property="updateDate"></span></div>
+                <div class="hearts" data-star="${grade}" data-flex="1"></div>
+            </div>
+        </div>
+    </li>
+    <div class="noResultTip">
+        <div>未找到您想要的程序</div>
+    </div>
+</xtag:template>
+</body>
+</html>

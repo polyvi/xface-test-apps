@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="res/home.css"/>
+    <script>
+        var page = this;
+        var temp = page.child("[data-role='template']");
+        var appsContainer = page.child(".apps_list_content");
+        var wrapperWidth = window.innerWidth,wrapperHeight = window.innerHeight;
+        var ICON_SIZE = 150;
+        var gridView = createGridView();
+        function createGridView(){
+            var gridView =  new GridView(appsContainer,{numColumns:Math.floor((window.innerWidth-120)/150)
+                ,xSpacing:20,ySpacing:20,horizontalSpacing:10,verticalSpacing:5,
+                wrapperWidth:wrapperWidth,wrapperHeight:wrapperHeight,replaceDelay:380});
+            gridView.bind("tapitem",function(e,item){
+                var app = item["resData"];
+                if(e.target.className == "update_mark"){
+                    if(item._update){
+                        updateApp(item);
+                    }else{
+                        item.removeClass("update");
+                    }
+                }else{
+                    if(app.type == "preset")xmesh.act(app.appCode);
+                    else app.start();
+                }
+            });
+            gridView.bind("holditem",onHoldItem);
+            gridView.bind("holditem",function(e,icon){
+                icon.setAttribute("active","");
+                navigator.notification.vibrate(50);
+            });
+            gridView.bind("releaseitem",function(e,icon){
+                icon.removeAttribute("active");
+            });
+            return gridView;
+        }
+
+        var waiting = appsContainer.child(".waiting");
+        function showAppList(){
+            appsContainer.removeClass("error").removeClass("empty");
+            xmesh.model["ApplicationManager"].getInstalledAMSAppList(function(apps){
+                checkUpdate();
+                waiting.remove();
+                if(!apps || apps.length<=0){
+                    appsContainer.addClass("empty");
+                }
+                if(xmesh.model["Setting"].showNativeApp){
+                    this.getInstalledNativeAppList(function(napps){
+                        xmesh.model["LocalData"].LocalAppOrder.sortInstallApps(apps.concat(napps)).forEach(addAppIcon);
+                    });
+                }else{
+                    xmesh.model["LocalData"].LocalAppOrder.sortInstallApps(apps).forEach(addAppIcon);
+                }
+            },function(){
+                appsContainer.addClass("error");
+            });
+        }
+
+        function addAppIcon(app,unDraggable){
+            var item = temp.get(".app_item",app);
+            item.setAttribute("data-id",app.id);
+            gridView.add(item,{width:ICON_SIZE,height:ICON_SIZE,draggable:unDraggable !== true});
+        }
+
+        function updateApp(item){
+            var up = item._update;
+            Dialog.confirm("当前版本:"+item["resData"].version+"  更新版本:"+up["VERSION"]+"\r\n更新日志:"+(up["VERSION_INFO"]||"无"),function(){
+                Dialog.progressDialog.show("准备更新...",true);
+                var app = new RemoteApplication();
+                app.packageUrl = up["PACKAGE_URL"];
+                app.packageSize = up["SIZE"];
+                var downloader = xmesh.createModel(Downloader);
+                downloader.app = app;
+                downloader.bind("progress",function(evt){
+                    Dialog.progressDialog.setMessage("下载更新包："+Math.ceil(evt.progress)+"%");
+                });
+                downloader.bind("success error pause cancel",function(e){
+                    if(e.type == "success"){
+                        var path = e.fileEntry.fullPath;
+                        Dialog.progressDialog.setMessage("正在安装...");
+                        item["resData"].update(path,function(){
+                            item.removeClass("update");
+                            Dialog.progressDialog.close();
+                        },function(){
+                            Dialog.progressDialog.close();
+                            Dialog.alert("应用更新失败!");
+                        });
+                    }else{
+                        Dialog.progressDialog.close();
+                    }
+                });
+                downloader.start();
+            },null,"应用更新",["立即更新","以后再说"]);
+        }
+
+        var rightTop = page.child(".right_top"),dustbin = page.child(".dustbin"),bgColor;
+        function onHoldItem(e,icon){
+            var app = icon["resData"];
+            if(dustbin.hasClass("working"))return;
+            rightTop.addClass("manager");
+            gridView.bind("releaseitem",moveItemEnd,false);
+            gridView.bind("dragitem",onItemMove,false);
+            var windowWidth = window.innerWidth;
+            var l = 0, t =0;
+            var isDragDrop = false;
+            bgColor = icon.style.backgroundColor;
+            var notified = false;
+            function onItemMove(e){
+                var x = e.pageX + ICON_SIZE/2.8;
+                var y = e.pageY + ICON_SIZE/2.8;
+                l = icon.style.left;
+                t = icon.style.top;
+                if(x > windowWidth-(20+72) && y < 30+72+ICON_SIZE){
+                    isDragDrop = true;
+                    dustbin.addClass("active");
+                    icon.style.backgroundColor = "rgba(255,45,31,0.5)";
+                    if(!notified){
+                        navigator.notification.vibrate(100);
+                        notified = true;
+                    }
+                }else{
+                    notified = false;
+                    icon.style.backgroundColor = bgColor;
+                    isDragDrop = false;
+                    dustbin.removeClass("active");
+                }
+            }
+            function moveItemEnd(){
+                gridView.unbind("releaseitem",moveItemEnd,false);
+                gridView.unbind("dragitem",onItemMove,false);
+                dustbin.removeClass("active");
+                if(!isDragDrop){
+                    clearClasses();
+                    return;
+                }
+                if(app.isAMSAPP){
+                    icon.addClass("deleting");
+                    dustbin.addClass("deleting");
+                    icon.css({left:l,top:t});
+                }else{
+                    icon.style.backgroundColor = bgColor;
+                    icon.css({left:icon.x+"px",top:icon.y+"px"});
+                }
+                if(app.isAMSAPP)Loading.show(Loading.CENTER);
+                app.uninstall(function(){
+                    clearClasses();
+                    Loading.hide();
+                    XAudio.SOUNDS.DELETED.play();
+                },function(e){
+                    clearClasses();
+                    icon.css({left:icon.x+"px",top:icon.y+"px"});
+                    Loading.hide();
+                    Dialog.toast(e.message);
+                });
+                function clearClasses(){
+                    rightTop.removeClass("manager");
+                    dustbin.removeClass("deleting");
+                    icon.removeClass("deleting");
+                }
+            }
+        }
+        showAppList();
+        xmesh.model["ApplicationManager"].bind("appInstalled",function(evt){
+            if(!evt.app)return;
+            addAppIcon(evt.app);
+        }).bind("appUninstalled",function(evt){
+                    var item = appsContainer.child(".app_item[data-id='"+evt.app.id+"']");
+                    gridView.remove(item);
+                });
+
+        this.bind("backbutton",function(e){
+            e.preventDefault();
+            if(Dialog.progressDialog.visible && Dialog.progressDialog.disabled)return;
+            if(xmesh.model["DownloadManager"].queue.downloading.length>0){
+                Dialog.confirm("有下载任务正在进行,退出将暂停下载",exit);
+                return;
+            }
+            Dialog.confirm("确定要退出?",exit);
+            function exit(){
+                Dialog.progressDialog.show("正在退出");
+                xmesh.model["LocalData"].DownloadTask.store();
+                var icons = gridView.Queue.list,apps=[];
+                icons.forEach(function(icon){
+                    if(icon["resData"])apps.push(icon["resData"].id);
+                });
+                xmesh.model["LocalData"].LocalAppOrder.storeOrder(apps);
+                setTimeout(function(){
+                    Dialog.progressDialog.close();
+                    exitApp();
+                },600);
+            }
+        });
+        function checkUpdate(){
+            if(xmesh.model["Setting"].autoUpdate){
+                var am = xmesh.model["ApplicationManager"];
+                am.checkClientUpdate(function(data){
+                    if(!am.clientUpdateInfo)return;
+                    Dialog.confirm("最新版本:"+data["VERSION"]+"\r\n" + "更新内容:"+(data["VERSION_INFO"]||"无"),function(){
+                        navigator.app.openUrl(data["PACKAGE_URL"]);
+                    },null,"客户端检查到更新");
+                });
+                am.checkAppUpdate(am.installedAMSAppList,function(rs){
+                    rs.forEach(function(item){
+                        var icon = appsContainer.child(".app_item[data-id='"+item["APPCODE"]+"']");
+                        if(icon){
+                            icon.addClass("update");
+                            icon._update = item;
+                        }
+                    });
+                })
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="home" class="ui_container">
+    <div data-role="content">
+        <div class="apps_list_content">
+            <div class="waiting"></div>
+        </div>
+        <nav class="right_nav">
+            <div class="right_top">
+                <div class="dustbin"></div>
+                <div class="logo"></div>
+            </div>
+            <ul class="button_list">
+                <li class="add" onclick="xmesh.act('appCenter')"></li>
+                <li class="download" onclick="xmesh.act('downloadManager')"></li>
+                <li class="setting" onclick="xmesh.act('setting')"></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<xtag:template data-role="template">
+    <div class="app_item" style="background-color: ${bgColor}">
+        <img data-property="icon"/>
+        <label data-property="name"></label>
+        <mark class="update_mark"></mark>
+    </div>
+    <div class="emptyTip">
+        <div>您还没有安装任何应用</div>
+        <button onclick="xmesh.act('appCenter')">去应用中心看看</button>
+    </div>
+</xtag:template>
+</body>
+</html>

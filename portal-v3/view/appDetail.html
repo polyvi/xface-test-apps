@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>应用详情</title>
+    <link rel="stylesheet" href="res/appDetail.css"/>
+    <script>
+        var page = this;
+        var app = page.param;
+        page.child("[data-role='content']").attachData(app);
+        var shareMenu = page.child("#shareMenu");
+        shareMenu.toggle = function(){this.toggleClass("block")};
+        var temp = page.child("[data-role='template']");
+        var fullScreenWrapper = page.child(".full_screen");
+        (function initShareMenu(){
+            var content = {
+                subject:"xPortal应用分享",
+                body:'我正在xPortal上下载应用"'+app.name+'",xPortal下载 http://www.polyvi.com/xPortal/d?from=xPortal_mobile'
+            };
+            shareMenu.bind("click",function(){this.toggle()});
+            shareMenu.child("button").bind("click",function(e){
+                var type = this.getAttribute("data-type");
+                $.Share(type,content);
+            });
+        })();
+        (function initPreview(){
+            var images = app.previewImages;
+            if(!images || !images.length)return;
+            if(images.length>10)images = images.slice(0,10);
+            var previewScroll = page.child("#previewScroll"),previewScrollFull = page.child("#preview_full");
+            previewScrollFull.bind("click",function(){fullScreenWrapper.hide()});
+            images.forEach(function(img,i){
+                var item = temp.get(".preview_img",{image:img}).appendTo(previewScroll.child("ul"));
+                item.child("img").index = i;
+                var bigImg = temp.get(".preview_img",{image:img}).css({width: window.innerWidth+"px"});
+                previewScrollFull.child("ul").append(bigImg);
+            });
+            previewScroll.bind("click",function(e){
+                var index = e.target.index;
+                fullScreenWrapper.css({"display":""});
+                previewScrollFull.refresh();
+                previewScrollFull.goToPage(index,0,0);
+                previewScrollFull.refresh();
+            });
+            previewScrollFull.on("refresh",refreshIndicator);
+            previewScrollFull.on("scrollEnd",refreshIndicator);
+            function refreshIndicator(){
+                fullScreenWrapper.child(".pages .current").html(this.currentPage.pageX + 1);
+                fullScreenWrapper.child(".pages .total").html(this.pages.length);
+            }
+            previewScroll.refresh();
+        })();
+
+        var icon = _$(page).find(".icon img"),downloadBtn = _$(page).find(".download_link_button");
+        var downloadManager = xmesh.model["DownloadManager"];
+        var action = page.child("#action");
+        if(xmesh.model["ApplicationManager"].isInstalled(app)){
+            action.name = "installed";
+        }else{
+            var downloader = downloadManager.getDownloader(app);
+            if(downloader){
+                if(downloader.isDownloading()) action.name = "downloading";
+                if(downloader.status == Downloader.STATUS.PAUSE){
+                    action.name = "pause";
+                    action.child(".label").html("继续");
+                    action.child(".progress").css({"width":Math.ceil(downloader.progress)+"%"});
+                }else if(downloader.status == Downloader.STATUS.WAITING){
+                    action.name = "waiting";
+                    action.child(".label").html("等待");
+                }
+                initDownloader(downloader);
+            }else{
+                action.name = "install";
+            }
+        }
+        action.disabled = false;
+        function initDownloader(downloader){
+            downloader.bind("start",function(){
+                action.name = "downloading";
+                action.child(".label").html("下载中..");
+            });
+            downloader.bind("progress",function(evt){
+                var progress = Math.ceil(evt.progress)+"%";
+                action.name = "downloading";
+                action.child(".label").html("下载中..");
+                action.child(".progress").css({"width":progress});
+            });
+            downloader.bind("pause",function(){
+                action.name = "pause";
+                action.child(".label").html("继续");
+            });
+            downloader.bind("cancel error",function(){
+                action.name = "install";
+                action.child(".label").html("");
+                action.child(".progress").css({"width":0});
+            });
+            downloader.bind("success",function(evt){
+                action.child(".label").html("安装...");
+                if(app._installing)return;
+                app.install(function(){
+                    action.child(".label").html("");
+                    action.name = "installed";
+                    Dialog.toast("["+app.name+"]"+"安装完成");
+                    action.child(".progress").css({"width":0});
+                    evt.fileEntry.remove();
+                },function(){
+                    action.child(".label").html("");
+                    action.name = "install";
+                    Dialog.toast("["+app.name+"]"+"安装失败");
+                    action.child(".progress").css({"width":0});
+                    evt.fileEntry.remove();
+                });
+            });
+        }
+
+        action.bind("click",function(){
+            switch (this.name){
+                case "installed":app.start(null,function(){
+                    Dialog.toast('应用无法启动');
+                });
+                    break;
+                case "install":
+                        if(downloadManager.getDownloader(app)){
+                            Dialog.toast("该应用已在下载列表中");
+                            return;
+                        }
+                        downloader = downloadManager.createDownloader(app);
+                        initDownloader(downloader);
+                        downloader.bind("error",function(){
+                            Dialog.toast('"'+this.app.name+'"'+'下载失败');
+                            action.name = "install";
+                            action.child(".label").html("");
+                            action.child(".progress").css({"width":"0"});
+                        });
+                        if(downloadManager.queue.downloading.length<downloadManager.maxThreads)downloader.start();
+                        action.name = "waiting";
+                        action.child(".label").html("等待");
+                    break;
+                case "waiting":
+                case "downloading":xmesh.act('downloadManager');
+                    break;
+                case "pause":downloader.start();
+                    break;
+            }
+        });
+        this.bind("hide",function(){
+            downloadBtn.hide();
+        });
+
+        this.bind("backbutton",function(e){
+            if(fullScreenWrapper.css("display") != "none"){
+                e.preventDefault();
+                fullScreenWrapper.hide();
+            }
+            if(shareMenu.hasClass("block") && e.origin == "device"){
+                e.preventDefault();
+                shareMenu.toggle();
+            }
+        });
+    </script>
+</head>
+<body>
+<div id="appDetail" class="ui_container">
+    <header data-role="header">
+        <button class="left back">返回</button>
+        <h1 x-page="title"></h1>
+        <button class="right" onclick="shareMenu.toggle()">分享</button>
+    </header>
+    <div data-role="content">
+        <nav id="shareMenu">
+            <div data-box="h">
+                <button class="sms" data-type="sms"><span class="icon"></span><label>短信</label></button>
+                <button class="email" data-type="email"><span class="icon"></span><label>邮件</label></button>
+                <button class="sina" data-type="sina_wb"><span class="icon"></span><label>新浪微博</label></button>
+                <button class="tencent" data-type="tencent_wb"><span class="icon"></span><label>腾讯微博</label></button>
+            </div>
+        </nav>
+        <xtag:ScrollPane class="content">
+            <div data-box="h" class="head">
+                <div class="icon" data-flex="1">
+                    <img class="lazy" data-property="icon"/>
+                </div>
+                <div class="info" data-box="v" data-flex="4">
+                    <div class="name" data-property="name"></div>
+                    <div class="version">版本号:<span data-property="version" data-default="未知"></span></div>
+                    <div class="updateDate">更新日期:<span data-property="updateDate" data-default="未知"></span></div>
+                </div>
+                <div class="control" data-flex="1" data-box="v">
+                    <div class="hearts" data-star="${grade}" data-flex="1"></div>
+                    <button id="action" name="install" disabled data-flex="2"><span class="progress"></span><span class="label"></span></button>
+                </div>
+            </div>
+            <div class="preview">
+                <xtag:ScrollPane id="previewScroll" scrollY="false" scrollX="true" bounceEasing='elastic' bounceTime="1200">
+                    <ul></ul>
+                </xtag:ScrollPane>
+            </div>
+            <div class="intro">
+                <h1>应用简介</h1>
+                <span class="detail" data-property="content"></span>
+            </div>
+        </xtag:ScrollPane>
+        <button class="download_link_button" onclick="xmesh.act('downloadManager')"></button>
+    </div>
+    <div class="full_screen" data-box="v" style="display: none">
+        <xtag:ScrollPane id="preview_full" data-flex="1" scrollX="true" scrollbars="false" scrollY="false" momentum="false" snap="true" keyBindings="true"
+                         snapSpeed="400" indicators="true">
+            <ul></ul>
+        </xtag:ScrollPane>
+        <div class="pages"><span class="current"></span>/<span class="total"></span></div>
+    </div>
+</div>
+<xtag:template data-role="template">
+    <li class="preview_img"><img class="lazy" data-property="image"/></li>
+</xtag:template>
+</body>
+</html>

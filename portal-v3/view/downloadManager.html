@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>下载中心</title>
+    <link rel="stylesheet" href="res/downloadManager.css"/>
+    <script>
+        var page = this;
+        var dm = xmesh.model["DownloadManager"];
+        var temp = page.child("[data-role='template']");
+        var scroll = page.child("#scroller"),list = page.child(".download_list");
+        var queue = dm.queue.list;
+        page.bind("show",refreshDownloadList);
+        function refreshDownloadList(){
+            $.each(queue,function(i,downloader){
+                var item = temp.get(".download_item",downloader,true);
+                item.child(".progressbar > span").css({"width":Math.ceil(downloader.progress)+"%"});
+                downloader.bind("progress",function(){
+                    item.child(".progressbar > span").css({"width":Math.ceil(downloader.progress)+"%"});
+                });
+                downloader.bind("success cancel",function(){
+                    item.remove();
+                    scroll.refresh();
+                });
+                downloader.bind("start progress success error pause cancel",function(e){
+                    refreshStatusText(item,downloader);
+                });
+                refreshStatusText(item,downloader);
+                list.append(item);
+            });
+            scroll.refresh();
+            function refreshStatusText(item,downloader){
+                item.attribute("data-status",downloader.status);
+                switch (downloader.status){
+                    case Downloader.STATUS.WAITING:
+                        item.child(".label").html("等待...");
+                        item.child(".control .pause").html("开始");
+                        break;
+                    case Downloader.STATUS.DOWNLOADING :
+                    case Downloader.STATUS.STARTING:
+                        item.child(".label").html("下载中...");
+                        item.child(".control .pause").html("暂停");
+                        break;
+                    case Downloader.STATUS.PAUSE:
+                        item.child(".label").html("暂停");
+                        item.child(".control .pause").html("继续");
+                        break;
+                    case Downloader.STATUS.ERROR:
+                        item.child(".label").html("错误");
+                        item.child(".control .pause").html("重试");
+                        break;
+                    case Downloader.STATUS.COMPLETE:
+                    case Downloader.STATUS.CANCEL:
+                        item.child(".label").html("完成");
+                        item.child(".control .pause").html("重新下载");
+                        break;
+                    default :
+                        item.child(".label").html("等待");
+                        item.child(".control .pause").html("暂停");
+                        break;
+                }
+            }
+        }
+        refreshDownloadList();
+        page.child(".shake").bind("click",function(){
+            xmesh.act('shake');
+        });
+        _$(page).delegate(".control","click",function(e){
+            var d = this.parentElement["resData"];
+            switch (e.target.className){
+                case "pause":
+                    if(d.isDownloading()){
+                        d.pause();
+                    }else{
+                        d.start();
+                    }
+                    break;
+                case "cancel":d.cancel();
+                    break;
+            }
+        });
+    </script>
+</head>
+<body>
+<div id="downloadManager" class="ui_container">
+    <header data-role="header">
+        <button class="left back">返回</button>
+        <h1 x-page="title"></h1>
+        <div class="right"></div>
+    </header>
+    <div data-role="content">
+        <xtag:ScrollPane id="scroller">
+            <ul class="download_list"></ul>
+            <button class="shake">来试试摇一摇~</button>
+        </xtag:ScrollPane>
+    </div>
+</div>
+<xtag:template data-role="template">
+    <li data-box="h" class="download_item" data-status="${status}">
+        <div class="icon" data-flex="1"><img data-property="app.icon"></div>
+        <div class="info" data-flex="5" data-box="v">
+            <div class="name" data-property="app.name" data-flex="1"></div>
+            <div class="status" data-flex="1">
+                <span class="label">等待</span>
+                 <span class="progress">
+                     <span class="current" data-property="downloaded">0</span>/<span class="total" data-property="totalSize">0</span>
+                 </span>
+            </div>
+            <div class="progressbar" data-flex="1"><span></span></div>
+        </div>
+        <div class="control">
+            <button class="pause">暂停</button>
+            <button class="cancel">取消</button>
+        </div>
+    </li>
+</xtag:template>
+</body>
+</html>
