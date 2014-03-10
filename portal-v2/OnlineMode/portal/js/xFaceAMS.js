@@ -14,18 +14,17 @@ xFaceAMS.prototype.downloadWidget = function (path, name, sucess, fail){
         console.log(JSON.stringify(e));
     };
     var onSuccess = function(fileSystem) {
-        console.log('File API Init: Setting PERSISTENT FS.');
+        console.log('File API Init: Setting APPWORKSPACE FS.');
         root = fileSystem.root;
-        name = fileSystem.root.fullPath + '/' + name;
-        new FileTransfer().download(path, name, sucess, fail);
+        new FileTransfer().download(path, root.toURL() + name, sucess, fail);
     };
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onSuccess, onError);
+    window.requestFileSystem(LocalFileSystem.APPWORKSPACE, 0, onSuccess, onError);
 };
 
 function downloadSuccess(entry){
     $("message").innerHTML = "正在安装...";
     $('mask').show();
-	XFACEAMS.installApp(entry.fullPath,installSuccess,installFailed);
+	XFACEAMS.installApp(entry.toURL(),installSuccess,installFailed);
 }
 
 function downloadFail(error){
@@ -100,7 +99,7 @@ xFaceAMS.prototype.updateApp = function(appInfo,win,fail,statusChanged){
 	this.downloadWidget(packagePath, null, downloadSucess, downloadFail);
 	
 	function downloadSucess(entry){
-		xFace.AMS.updateApplication(entry.fullPath, win,fail, statusChanged)
+		xFace.AMS.updateApplication(entry.toURL(), win,fail, statusChanged)
 	}
 }
 
