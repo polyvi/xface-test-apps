@@ -5,6 +5,8 @@ index.html
 xface.js
 viewport.adapter.js
 icon.png
+cordova_plugins.js
+base.js
 ./img/back.png
 ./img/bullet.png
 ./img/dogSniffJump.png
@@ -34,6 +36,9 @@ icon.png
 ./sounds/sniff.wav
 ./sounds/thud.wav
 ./sounds/wings.wav
-
+./plugins/com.polyvi.xface.extension.xapp/www/android/app.js
+./plugins/com.polyvi.xface.extension.xapp/www/android/SysComponent.js
+./plugins/org.apache.cordova.dialogs/www/notification.js
+./plugins/org.apache.cordova.dialogs/www/android/notification.js
 NETWORK:
 style.css
