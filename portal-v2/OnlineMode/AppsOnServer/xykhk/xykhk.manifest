@@ -6,6 +6,12 @@ xface.js
 ./js/viewport.adapter.js
 ./css/index.css
 icon.png
+cordova_plugins.js
+base.js
+./plugins/com.polyvi.xface.extension.xapp/www/android/app.js
+./plugins/com.polyvi.xface.extension.xapp/www/android/SysComponent.js
+./plugins/org.apache.cordova.dialogs/www/notification.js
+./plugins/org.apache.cordova.dialogs/www/android/notification.js
 
 NETWORK:
 ./css/img/r1.png

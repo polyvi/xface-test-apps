@@ -189,37 +189,44 @@ function DownloadTask(url){
 
 	_this.start = function(){
 		var seg = String(url).split('/');
-		fileTransfer = new FileTransfer();
-		fileTransfer.download(
-			url, root.fullPath + "/" + seg.pop(),
-			_handleOnSuccess, _handleOnFailure
-		);
+		var entryPath = "";
+		window.requestFileSystem(LocalFileSystem.APPWORKSPACE, 0,
+			function(fileSystem) {
+				entryPath = fileSystem.root.toURL();
+				fileTransfer = new FileTransfer();
+				fileTransfer.download(
+					url, entryPath + seg.pop(),
+					_handleOnSuccess, _handleOnFailure
+				);
 
-		function _handleOnSuccess(entry){
-			showToolTip("下载成功,开始安装...");
-			_this.queue.removeTaskByIndex(_this.index);
-			install(entry.fullPath);
-		}
+				function _handleOnSuccess(entry){
+					showToolTip("下载成功,开始安装...");
+					_this.queue.removeTaskByIndex(_this.index);
+					install(entry.toURL());
+				}
 
-		function _handleOnFailure(errCode){
-			var msg;
-			switch(errCode.code){
-				case FileTransferError.FILE_NOT_FOUND_ERR:
-					msg = '未找到文件';
-					break;
-				case FileTransferError.INVALID_URL_ERR:
-					msg = '无效的URL';
-					break;
-				case FileTransferError.CONNECTION_ERR:
-					msg = '网络错误';
-					break;
-				default:
-					msg = '错误码('+errCode.code+')';
-					break;
-			}
-			showToolTip('下载失败:'+msg);
-			_this.queue.removeTaskByIndex(_this.index);
-		}
+				function _handleOnFailure(errCode){
+					var msg;
+					switch(errCode.code){
+						case FileTransferError.FILE_NOT_FOUND_ERR:
+							msg = '未找到文件';
+							break;
+						case FileTransferError.INVALID_URL_ERR:
+							msg = '无效的URL';
+							break;
+						case FileTransferError.CONNECTION_ERR:
+							msg = '网络错误';
+							break;
+						default:
+							msg = '错误码('+errCode.code+')';
+							break;
+					}
+					showToolTip('下载失败:'+msg);
+					_this.queue.removeTaskByIndex(_this.index);
+				}
+			}, function(fileSystem) {
+				showToolTip("请求文件系统失败...");
+			});
 	}
 
 	return _this;
@@ -358,14 +365,13 @@ function XNavigator(){
 */
 
 function Application(id, isData){
-
 	if(!id) throw new Error(arguments.callee.name+': Required initial ID');
 	var _data = isData?id:_fetchAppData(id);
 
-	Object.defineProperty(this, 'appID', function(){return _data['appid']});
-	Object.defineProperty(this, 'name', function(){return _data['name']});
-	Object.defineProperty(this, 'icon', function(){return _data['icon']});
-	Object.defineProperty(this, 'version', function(){return _data['version']});
+	Object.defineProperty(this, 'appID', {get:function(){return _data['appid']}});
+	Object.defineProperty(this, 'name', {get:function(){return _data['name']}});
+	Object.defineProperty(this, 'icon', {get:function(){return _data['icon']}});
+	Object.defineProperty(this, 'version', {get:function(){return _data['version']}});
 
 	this.uninstall = function(success, failure){
 		xPortal.uninstall(this.appID, success, failure);
