@@ -2,11 +2,11 @@
 
 CACHE:
 index.html
-xface.js
+select_platform.js
+xface_android.js
+xface_ios.js
 viewport.adapter.js
 icon.png
-cordova_plugins.js
-base.js
 ./img/back.png
 ./img/bullet.png
 ./img/dogSniffJump.png
@@ -36,9 +36,5 @@ base.js
 ./sounds/sniff.wav
 ./sounds/thud.wav
 ./sounds/wings.wav
-./plugins/com.polyvi.xface.extension.xapp/www/android/app.js
-./plugins/com.polyvi.xface.extension.xapp/www/android/SysComponent.js
-./plugins/org.apache.cordova.dialogs/www/notification.js
-./plugins/org.apache.cordova.dialogs/www/android/notification.js
 NETWORK:
 style.css
