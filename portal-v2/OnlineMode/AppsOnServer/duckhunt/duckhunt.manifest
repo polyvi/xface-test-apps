@@ -37,4 +37,5 @@ icon.png
 ./sounds/thud.wav
 ./sounds/wings.wav
 NETWORK:
+*
 style.css
