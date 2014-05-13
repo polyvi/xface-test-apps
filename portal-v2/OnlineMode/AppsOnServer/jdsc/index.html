@@ -4,6 +4,25 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <script type="text/javascript" src="viewport.adapter.js"></script>
 <script type="text/javascript" src="select_platform.js"></script>
+<script type="text/javascript">
+	var appCache = window.applicationCache;
+
+	switch (appCache.status) {
+	  case appCache.DOWNLOADING: // DOWNLOADING == 3
+	    alert('正在下载离线缓存资源，请等待下载完成后再退出');
+	    break;
+	  default:
+	    break;
+	};
+
+	function handleCacheEvent(e) {
+		alert('下载完成');
+	}
+	appCache.addEventListener('cached', handleCacheEvent, false);
+	if(window.applicationCache.status === window.applicationCache.CACHED) {
+		handleCacheEvent();
+	}
+</script>
 <style>
 	html,body {
 		padding:0;

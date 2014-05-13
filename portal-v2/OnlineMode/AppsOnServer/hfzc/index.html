@@ -3,6 +3,42 @@
 <head>
 <script type="text/javascript" src="viewport.adapter.js"></script>
 <script type="text/javascript" src="select_platform.js"></script>
+<script type="text/javascript">
+	var appCache = window.applicationCache;
+
+	switch (appCache.status) {
+	  case appCache.UNCACHED:
+	    break;
+	  case appCache.IDLE:
+	    break;
+	  case appCache.UPDATEREADY:  // UPDATEREADY == 4
+		alert('UPDATEREADY');
+		break;
+	  case appCache.CHECKING:
+	  	alert('CHECKING');
+	    break;
+	  case appCache.DOWNLOADING: // DOWNLOADING == 3
+	    alert('正在下载离线缓存资源，请等待下载完成后再退出');
+	    break;
+	  default:
+	    break;
+	};
+
+	function handleCacheEvent(e) {
+		alert('下载完成');
+	}
+	appCache.addEventListener('cached', handleCacheEvent, false);
+	if(window.applicationCache.status === window.applicationCache.CACHED) {
+		handleCacheEvent();
+	}
+	function onUpdateReady() {
+		alert('found new version!');
+	}
+	window.applicationCache.addEventListener('updateready', onUpdateReady);
+	if(window.applicationCache.status === window.applicationCache.UPDATEREADY) {
+		onUpdateReady();
+	}
+</script>
 <style>
 	html,body {
 		padding:0;

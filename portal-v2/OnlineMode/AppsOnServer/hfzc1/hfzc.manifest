@@ -7,8 +7,8 @@ xface_android.js
 xface_ios.js
 viewport.adapter.js
 ./css/index.css
-icon.png
 
 NETWORK:
 ./css/img/r1.png
+icon.png
 *
